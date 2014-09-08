@@ -8,7 +8,7 @@ import models.Word;
 import services.RhymeService;
 import services.SeparatesSyllablesService;
 
-//testando commit!!
+//testando commit
 public class Main {
 
 	public static void main(String args[]){
