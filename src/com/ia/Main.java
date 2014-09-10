@@ -1,23 +1,28 @@
 package com.ia;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 
+import resource.Resources;
+
 import com.ia.models.DataBaseWord;
 import com.ia.models.Word;
 import com.ia.services.RhymeService;
 import com.ia.services.SeparatesSyllablesService;
-
 import com.ia.DAO.DataBaseWordDAO;
 import com.ia.hibernate.HibernateUtil;
+
 import br.furb.api.furbspeech.FurbSpeech;
 
 //testando commit
 public class Main {
 
-	public static void main(String args[]){
+	public static void main(String args[]) throws Exception{
 		
 		//File speech = new FurbSpeech().text("isso é muito tóxico e tem paralelepípedo").to().speech();
 		
@@ -48,4 +53,22 @@ public class Main {
         
         return list;
     }    
+	public static void createBdFromTextFile() throws Exception{
+		
+		Session session = HibernateUtil.getSession();
+		 BufferedReader br = new BufferedReader(new InputStreamReader(Resources.class.getResourceAsStream("portuguese.txt"), "UTF-8"));
+		    try {
+		        String line = br.readLine();
+
+		        while (line != null) {
+		            DataBaseWord dataBaseWord = new DataBaseWord();
+		            dataBaseWord.setNome(line);
+		            DataBaseWordDAO dbwDAO = new DataBaseWordDAO();
+		            dbwDAO.saveOrUpdate(dataBaseWord);
+		            line = br.readLine();
+		        }
+		    } finally {
+		        br.close();
+		    }
+	}
 }
