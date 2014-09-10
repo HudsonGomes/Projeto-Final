@@ -1,12 +1,18 @@
 package com.ia;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
+import org.hibernate.Session;
+
+import com.ia.models.DataBaseWord;
+import com.ia.models.Word;
+import com.ia.services.RhymeService;
+import com.ia.services.SeparatesSyllablesService;
+
+import com.ia.DAO.DataBaseWordDAO;
+import com.ia.hibernate.HibernateUtil;
 import br.furb.api.furbspeech.FurbSpeech;
-
-import models.Word;
-import services.RhymeService;
-import services.SeparatesSyllablesService;
 
 //testando commit
 public class Main {
@@ -33,4 +39,13 @@ public class Main {
 			System.out.println(word.getText()+" não rima com "+word2.getText());
 		}
 	}
+	
+	public List<DataBaseWord> execute(List<DataBaseWord> atributos) throws Exception {
+        Session session = HibernateUtil.getSession();
+        DataBaseWordDAO dao = new DataBaseWordDAO();
+        List<DataBaseWord> list = new ArrayList<DataBaseWord>();
+        List<DataBaseWord> todos = dao.findAll(DataBaseWord.class);
+        
+        return list;
+    }    
 }

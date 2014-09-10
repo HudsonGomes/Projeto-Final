@@ -1,8 +1,8 @@
-package services;
+package com.ia.services;
 
 import java.util.ArrayList;
 
-import models.Word;
+import com.ia.models.Word;
 
 public class SeparatesSyllablesService {
 	

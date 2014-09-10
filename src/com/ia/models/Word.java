@@ -1,4 +1,4 @@
-package models;
+package com.ia.models;
 
 public class Word extends Letters{
 

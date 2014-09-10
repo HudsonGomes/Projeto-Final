@@ -1,4 +1,4 @@
-package models;
+package com.ia.models;
 public class Letters
 {
 	public static final char ACENTOS[];

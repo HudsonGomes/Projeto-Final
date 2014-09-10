@@ -1,4 +1,4 @@
-package models;
+package com.ia.models;
 import java.util.ArrayList;
 
 
