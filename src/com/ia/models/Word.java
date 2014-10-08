@@ -5,6 +5,10 @@ public class Word extends Letters{
 	String text;
 	String phoneme;
 	
+	public Word(String text){
+		this.text = text;
+	}
+	
 	public Word(String text, String phoneme){
 		this.text = text;
 		this.phoneme = phoneme;

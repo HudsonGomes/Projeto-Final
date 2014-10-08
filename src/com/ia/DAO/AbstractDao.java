@@ -42,7 +42,7 @@ public abstract class AbstractDao<T> {
     public AbstractDao() throws DaoException {
         HibernateFactory.buildIfNeeded();
     }
-
+    
     /**
      * @throws DaoException
      */
@@ -56,7 +56,7 @@ public abstract class AbstractDao<T> {
      * @param obj
      * @throws DaoException
      */
-    protected void saveOrUpdate(T obj) throws DaoException {
+    public void saveOrUpdate(T obj) throws DaoException {
         try {
             startOperation();
             session.saveOrUpdate(obj);

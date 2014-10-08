@@ -2,8 +2,10 @@ package com.ia.DAO;
 
 import java.util.List;
 
-import com.ia.models.DataBaseWord;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
+import com.ia.models.DataBaseWord;
 import com.ia.DAO.AbstractDao;
 import com.ia.DAO.DaoException;
 
@@ -55,5 +57,27 @@ public class DataBaseWordDAO extends AbstractDao<DataBaseWord>{
         return super.findAll(clazz);
     }
     
+    @SuppressWarnings("unchecked")
+	public DataBaseWord getSameString(String string) throws Exception{
+		
+		DataBaseWord obj = null;
+        try {
+        	startOperation();
+        	String queryStr = "select c from " 
+    			+ DataBaseWord.class.getName() + " c where c.nome = :string ";
+    		
+    		
+    		Query query = session.createQuery(queryStr);
+    		
+    		query.setString("string", string);
+    		obj = (DataBaseWord)query.list().get(0);
+    		tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+         
+        }
+        return obj;
+	}
 }
 

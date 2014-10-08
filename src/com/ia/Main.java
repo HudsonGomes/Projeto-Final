@@ -11,20 +11,20 @@ import org.hibernate.Session;
 import resource.Resources;
 
 import com.ia.models.DataBaseWord;
+import com.ia.models.Phrase;
 import com.ia.models.Word;
 import com.ia.services.RhymeService;
 import com.ia.services.SeparatesSyllablesService;
+import com.ia.usertype.CategoryUserType;
+import com.ia.DAO.AbstractDao;
 import com.ia.DAO.DataBaseWordDAO;
 import com.ia.hibernate.HibernateUtil;
-
-import br.furb.api.furbspeech.FurbSpeech;
 
 //testando commit
 public class Main {
 
 	public static void main(String args[]) throws Exception{
 		
-		//File speech = new FurbSpeech().text("isso é muito tóxico e tem paralelepípedo").to().speech();
 		
 		Word word = new Word("pneumático", "pneu.ma.ti.co");
 		//Word word = new Word("tédio", "te.di.o");
@@ -32,7 +32,8 @@ public class Main {
 		//Word word2 = new Word("colégio", "co.le.gi.o");
 		Word word2 = new Word("enfático", "en.fa.ti.co");
 		SeparatesSyllablesService service = new SeparatesSyllablesService();
-		ArrayList<String> syllables = service.separatesSyllables(word);
+		Word wordT = new Word("paralelepípedo");
+		ArrayList<String> syllables = service.separatesSyllables(wordT);
 		RhymeService rhymeService = new RhymeService();
 		boolean isR = rhymeService.isRhyming(word, word2);
 		
@@ -43,6 +44,7 @@ public class Main {
 		}else{
 			System.out.println(word.getText()+" não rima com "+word2.getText());
 		}
+		fillPhrase();
 	}
 	
 	public List<DataBaseWord> execute(List<DataBaseWord> atributos) throws Exception {
@@ -52,7 +54,27 @@ public class Main {
         List<DataBaseWord> todos = dao.findAll(DataBaseWord.class);
         
         return list;
-    }    
+    }
+	
+	//popula Banco de dados a partir do txt portuguese.txt
+		public static void fillPhrase() throws Exception{
+			
+			Phrase phrase = new Phrase();
+			phrase.setPhrase("Estamos nos aprimorando");
+			phrase.setCategory(CategoryUserType.AMOR);
+			String[] parts =phrase.getPhrase().split(" ");
+			Session session = HibernateUtil.getSession();
+	        DataBaseWordDAO dao = new DataBaseWordDAO();
+	        DataBaseWord dbw = dao.getSameString(parts[parts.length-1]);
+	        if(dbw != null){
+	        	phrase.setLastWord(dbw);
+	            AbstractDao<Phrase> phraseDAO = new AbstractDao<Phrase>() {};
+	            phraseDAO.saveOrUpdate(phrase);
+	        }
+			    
+		}
+	
+	//popula Banco de dados a partir do txt portuguese.txt
 	public static void createBdFromTextFile() throws Exception{
 		
 		Session session = HibernateUtil.getSession();
