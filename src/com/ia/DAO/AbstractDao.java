@@ -109,7 +109,7 @@ public abstract class AbstractDao<T> {
      * @return
      * @throws DaoException
      */
-    protected Object find(Class<T> clazz, Integer id) throws DaoException {
+    public Object find(Class<T> clazz, Integer id) throws DaoException {
         Object obj = null;
         try {
             startOperation();

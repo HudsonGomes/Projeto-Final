@@ -11,8 +11,14 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="connection.username">postgres</property>
 		<property name="connection.password">123</property>
-        <property name="hibernate.hbm2ddl.auto">none</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
         
         <mapping class="com.ia.models.DataBaseWord"/>
+        <mapping class="com.ia.models.Phrase"/>
+        <mapping class="com.ia.models.Evaluation"/>
+        <mapping class="com.ia.models.User"/>
+        
     </session-factory>
 </hibernate-configuration>
